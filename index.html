@@ -96,7 +96,7 @@
   .box i { position: absolute; right: 3px; bottom: 0; font-style: normal; font-size: 10px; font-weight: 500; color: var(--ink); }
   .plain { font-size: 20px; font-weight: 700; letter-spacing: .12em; }
   .anote { font-size: 12px; color: var(--muted); margin-top: 6px; }
-  .final-note { text-align: center; color: var(--red); font-weight: 700; margin-top: 4px; }
+  .final-note { text-align: center; color: var(--red); font-weight: 700; margin-top: 4px; white-space: pre-line; }
   button {
     font: inherit; font-weight: 700; font-size: 15px; width: 100%; min-height: 46px; cursor: pointer;
     border: 1px solid var(--gold); background: #fff; color: var(--gold); border-radius: 999px;
@@ -196,7 +196,7 @@
     if (st.ans) html += answerHtml(q);
     else if (st.shown < q.hints.length) html += `<button data-act="hint">ヒント ${st.shown + 1} を見る</button>`;
     else if (q.answer) html += `<button class="ans" data-act="ans">答えを見る</button>`;
-    else html += `<p class="final-note">答えがわかったら、新郎新婦に伝えてね！</p>`;
+    else html += `<p class="final-note">${esc(q.end || "答えがわかったら、新郎新婦に伝えてね！")}</p>`;
     el.querySelector(".body").innerHTML = html;
     const s = el.querySelector(".state");
     s.className = "state" + (st.ans ? " done" : "");
