@@ -190,10 +190,11 @@
 
   function render(el) {
     const q = byId[el.dataset.id];
-    const st = state[q.id] || { shown: 0, ans: false };
+    const st = Object.assign({ shown: 0, ans: false }, state[q.id]);
+    if (!q.answer) st.ans = false;
     let html = "";
     for (let i = 0; i < st.shown; i++) html += `<div class="hint"><b>ヒント ${i + 1}</b>${esc(q.hints[i])}</div>`;
-    if (st.ans) html += answerHtml(q);
+    if (st.ans && q.answer) html += answerHtml(q);
     else if (st.shown < q.hints.length) html += `<button data-act="hint">ヒント ${st.shown + 1} を見る</button>`;
     else if (q.answer) html += `<button class="ans" data-act="ans">答えを見る</button>`;
     else html += `<p class="final-note">${esc(q.end || "答えがわかったら、新郎新婦に伝えてね！")}</p>`;
